@@ -7,12 +7,40 @@ class KiiObjectAPI
         @context = context
     end
 
+    def getObjectById(bucket, object_id)
+        c = @context
+        url = "#{c.serverUrl}/apps/#{c.appId}#{bucket.getPath}/objects/#{object_id}"
+
+        client = c.getNewClient
+        client.setUrl(url)
+        client.setMethod KiiHttpClient::HTTP_GET
+        client.setKiiHeader(c, true)
+
+        resp = client.send
+
+        unless resp.status == '200'
+            raise CloudException.new(resp.status, resp.getAsJson)
+        end
+
+        respJson = resp.getAsJson
+        respHeaders = resp.getAllHeaders
+        version = respHeaders['etag']
+        id = respJson['_id']
+        data = respJson
+
+        kiiobj = KiiObject.new(bucket, id, data)
+        kiiobj.version = version
+
+        return kiiobj
+    end
+
+
     def create(bucket, data)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{bucket.getPath}/objects"
 
         client = c.getNewClient
-        client.setUrl url
+        client.setUrl(url)
         client.setMethod KiiHttpClient::HTTP_POST
         client.setKiiHeader(c, true)
         client.setContentType('application/json')
@@ -46,15 +74,9 @@ class KiiObjectAPI
 
         resp = client.sendJson(object.data)
 
-        if resp.status == '200'
+        if resp.status == '200' || resp.status == '201'
             respHeaders = resp.getAllHeaders
             version = respHeaders['etag']
-            object.version = version
-            return object
-
-        elsif resp.status == '201'
-            respHeaders = resp.getAllHeaders
-            version = respHeaders['etags']
             object.version = version
             return object
 
@@ -111,19 +133,14 @@ class KiiObjectAPI
 
         resp = client.sendJson(object.data)
 
-        if resp.status == '200'
+        if resp.status == '200' || resp.status == '201'
             respHeaders = resp.getAllHeaders
             version = respHeaders['etag']
             object.version = version
             return object
-
-        elsif resp.status == '201'
-            respHeaders = resp.getAllHeaders
-            version = respHeaders['etag']
-            object.version = version
-            return object
+        else
+            raise CloudException.new(resp.status, resp.getAsJson)
         end
-        raise CloudException.new(resp.status, resp.getAsJson)
     end
 
 
@@ -133,13 +150,15 @@ class KiiObjectAPI
 
         client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_DELETE)
+        client.setMethod(KiiHttpClient::HTTP_DELETE)
         client.setKiiHeader(c, true)
 
         resp = client.send
         unless resp.status == "204"
             raise CloudException.new(resp.status, resp.getAsJson)
         end
+
+        return resp
     end
 
 
@@ -149,8 +168,8 @@ class KiiObjectAPI
 
         client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_PUT)
-        client.setKiiHeader(true)
+        client.setMethod(KiiHttpClient::HTTP_PUT)
+        client.setKiiHeader(c, true)
         client.setContentType(contentType)
 
         resp = client.sendFile(data)
@@ -167,14 +186,12 @@ class KiiObjectAPI
 
         client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_GET)
+        client.setMethod(KiiHttpClient::HTTP_GET)
         client.setKiiHeader(c, true)
 
         resp = client.sendForDownload(fp)
 
-        if resp.status == '200'
-            return true
-        elsif resp.status == '201'
+        if resp.status == '200' || resp.status == '201'
             return true
         else
             raise CloudException.new(resp.status, resp.getAsJson)
@@ -187,7 +204,7 @@ class KiiObjectAPI
 
         client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_POST)
+        client.setMethod(KiiHttpClient::HTTP_POST)
         client.setKiiHeader(c, true)
         client.setContentType('application/vnd.kii.ObjectBodyPublicationRequest+json')
 

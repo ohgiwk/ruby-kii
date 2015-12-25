@@ -12,7 +12,11 @@ begin
     data = {:name => "hoge"}
 
     postbucket = bucketAPI.getBucket("post")
-    pp objectAPI.create(postbucket, data)
+    obj = objectAPI.create(postbucket, data)
+
+    pp objectAPI.getObjectById(postbucket, obj.id)
+
+    pp objectAPI.delete(obj)
 
 
 rescue => ex
