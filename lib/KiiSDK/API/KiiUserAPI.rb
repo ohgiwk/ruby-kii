@@ -12,7 +12,7 @@ class KiiUserAPI
 
     def getUser(user)
         c = @context
-        url = "#{c.serverUrl}/apps/#{c.appId}#{user.getPath()}"
+        url = "#{c.serverUrl}/apps/#{c.appId}#{user.getPath}"
 
         execGet(url)
     end
@@ -21,13 +21,14 @@ class KiiUserAPI
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}/users/me"
 
-        client = c.getNewClient()
+        client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_DELETE)
+        client.setMethod(KiiHttpClient::HTTP_DELETE)
         client.setKiiHeader(c, true)
 
-        resp = client.send()
-        unless resp.status == '200'
+        resp = client.send
+
+        unless resp.status == '204'
             raise CloudException.new(resp.status, resp.getAsJson)
         end
 
@@ -62,16 +63,16 @@ class KiiUserAPI
     def execGet(url)
         c = @context
 
-        client = c.getNewClient()
+        client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_GET)
+        client.setMethod(KiiHttpClient::HTTP_GET)
         client.setKiiHeader(c, true)
 
-        resp = client.send()
+        resp = client.send
         unless resp.status == '200'
-            raise CloudException.new(resp.status, resp.getAsJson())
+            raise CloudException.new(resp.status, resp.getAsJson)
         end
-        respJson = resp.getAsJson()
+        respJson = resp.getAsJson
         userId = respJson['userID']
 
         info = KiiUser.new(userId)
@@ -83,23 +84,23 @@ class KiiUserAPI
 
     def installDevice
         c = @context
-        url = "#{c.getServerUrl()}/apps/#{c.getAppId}/installations"
+        url = "#{c.serverUrl}/apps/#{c.appId}/installations"
 
         if os == OS_IOS
             data['development'] = development
         end
 
-        client = c.getNewClient()
+        client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_POST)
+        client.setMethod(KiiHttpClient::HTTP_POST)
         client.setKiiHeader(c, true)
         client.setContentType('application/vnd.kii.InstallationCreationRequest+json')
 
         resp = client.sendJson(data)
         unless resp.status == '201'
-            raise CloudException.new(resp.status, resp.getAsJson())
+            raise CloudException.new(resp.status, resp.getAsJson)
         end
-        respJson = resp.getAsJson()
+        respJson = resp.getAsJson
         return respJson['installationID']
     end
 
@@ -108,14 +109,14 @@ class KiiUserAPI
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}/installations/#{toDeviceType(os)}:#{token}"
 
-        client = c.getNewClient()
+        client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_DELETE)
+        client.setMethod(KiiHttpClient::HTTP_DELETE)
         client.setKiiHeader(c, true)
 
-        resp = client.send()
+        resp = client.send
         unless resp.status == '204'
-            raise CloudException.new(resp.status, resp.getAsJson())
+            raise CloudException.new(resp.status, resp.getAsJson)
         end
     end
 
@@ -132,16 +133,16 @@ class KiiUserAPI
 
     def subscribe(user, target)
         c = @context
-        url = "#{c.serverUrl}/apps/#{c.appId}#{target.getPath()}/push/subscriptions#{user.getPath()}"
+        url = "#{c.serverUrl}/apps/#{c.appId}#{target.getPath}/push/subscriptions#{user.getPath}"
 
-        client = c.getNewClient()
+        client = c.getNewClient
         client.setUrl(url)
-        client.setMethod(HttpClient::HTTP_PUT)
+        client.setMethod(KiiHttpClient::HTTP_PUT)
         client.setKiiHeader(c, true)
 
-        resp = client.send()
+        resp = client.send
         unless resp.status == '204'
-            raise CloudException.new(resp.status, resp.getAsJson())
+            raise CloudException.new(resp.status, resp.getAsJson)
         end
     end
 end

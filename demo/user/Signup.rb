@@ -6,10 +6,10 @@ kiiAppAPI = KiiSDK.init(APP_ID, APP_KEY, SITE)
 
 begin
     userID = kiiAppAPI.signUp({
-        "loginName" => "user_123456",
-        "displayName" => "person test000",
+        "loginName" => "hoge",
+        "displayName" => "hoge",
         "country" => "JP",
-        "password" => "123ABC"
+        "password" => "fuga"
         })
 
     p 'user id : ' + userID
