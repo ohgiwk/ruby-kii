@@ -1,6 +1,7 @@
 class KiiObject
 
     attr_reader :id
+    attr_accessor :data
     attr_accessor :version
 
     def initialize(bucket, id, data)
@@ -10,8 +11,8 @@ class KiiObject
         @version = nil
     end
 
-    def getPath()
-        @bucket.getPath + '/objects/' + @id
+    def getPath
+        return @bucket.getPath + '/objects/' + @id
     end
 
 end

@@ -1,7 +1,7 @@
 require_relative "./KiiHttpClient.rb"
 
 class KiiHttpClientFactory
-    def newClient()
+    def newClient
         KiiHttpClient.new()
     end
 end

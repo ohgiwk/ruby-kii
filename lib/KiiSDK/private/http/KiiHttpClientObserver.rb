@@ -5,7 +5,7 @@ class KiiHttpClientObserver
     end
 
     def update(subject)
-        event = subject.getLastEvent()
+        event = subject.getLastEvent
 
         case event['name']
         when 'receivedBodyPart'

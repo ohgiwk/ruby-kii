@@ -10,11 +10,11 @@ class KiiHttpResponse
         @body = body
     end
 
-    def getAllHeaders()
+    def getAllHeaders
         @headers
     end
 
-    def getAsJson()
+    def getAsJson
         JSON.parse(@body)
     end
 end

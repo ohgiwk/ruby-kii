@@ -52,21 +52,21 @@ class KiiHttpClient
 
     def sendFile(fp)
         @req.body = fp
-        send()
+        send
     end
 
     def sendForDownload(fp)
         @req.attach(KiiHttpClientObserver.new(fp))
-		send()
+		send
     end
 
     def sendJson(json)
         body = JSON.generate(json)
         @req.body = body
-        send()
+        send
     end
 
-    def send()
+    def send
         @http = Net::HTTP.new(@uri.host, @uri.port)
         @http.use_ssl = true
 

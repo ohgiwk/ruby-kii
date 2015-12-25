@@ -31,7 +31,7 @@ class KiiBucket
         end
     end
 
-    def getPath()
+    def getPath
         @path
     end
 end

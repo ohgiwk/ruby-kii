@@ -6,7 +6,7 @@ class KiiClause
         @clause = {:type => type}
     end
 
-    def self.all()
+    def self.all
         KiiClause.new('all')
     end
 
@@ -93,7 +93,7 @@ class KiiClause
         return array
     end
 
-    def toJson()
+    def toJson
         @clause
     end
 

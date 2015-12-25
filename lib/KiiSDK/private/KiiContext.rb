@@ -24,8 +24,8 @@ class KiiContext
     end
 
 
-    def getNewClient()
-        @clientFactory.newClient()
+    def getNewClient
+        @clientFactory.newClient
     end
 
 end

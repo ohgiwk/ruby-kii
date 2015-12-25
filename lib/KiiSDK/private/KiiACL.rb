@@ -1,4 +1,4 @@
-class KiiACL()
+class KiiACL
 
     QUERY_OBJECTS_IN_BUCKET = 1
     CREATE_OBJECTS_IN_BUCKE = 2

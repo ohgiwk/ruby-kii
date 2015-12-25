@@ -7,8 +7,7 @@ class KiiTopic
         @name = name
     end
 
-    def getPath()
+    def getPath
         @owner.getPath + '/topics/' + @name
     end
-
 end

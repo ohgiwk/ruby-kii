@@ -31,7 +31,7 @@ class KiiTopicMessage
         @apns = KiiAPNsMessage.new()
     end
 
-    def toJson()
+    def toJson
         json = array(
             :sendToDevelopment => @sendToDevelopment,
             :sendToProduction => @sendToProduction,
