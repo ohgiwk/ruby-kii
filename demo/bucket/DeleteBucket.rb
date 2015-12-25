@@ -2,7 +2,7 @@ require "KiiSDK"
 require_relative "../Constants.rb"
 require "pp"
 
-# initialize KiiAPI
+
 kiiAppAPI = KiiSDK.init(APP_ID, APP_KEY, SITE)
 
 begin

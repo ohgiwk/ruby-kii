@@ -54,9 +54,7 @@ class KiiAppAPI
             raise CloudException.new(resp.status, resp.getAsJson)
         end
 
-        respJson = resp.getAsJson
-
-        return respJson['userID']
+        return login(userData['loginName'], userData['password'])
     end
 
 

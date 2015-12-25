@@ -1,18 +1,22 @@
 require "KiiSDK"
 require_relative "../Constants.rb"
 
-
 kiiAppAPI = KiiSDK.init(APP_ID, APP_KEY, SITE)
 
 begin
-    userID = kiiAppAPI.signUp({
-        "loginName" => "hoge",
+    # prepare user data
+    data = {
+        "loginName" => "hoge", #required
+        "password" => "fuga", # required
         "displayName" => "hoge",
         "country" => "JP",
-        "password" => "fuga"
-        })
+    }
 
-    p 'user id : ' + userID
+    # create a user and login
+    user = kiiAppAPI.signUp(data)
+
+    p 'user id : ' + user.id
+
 rescue CloudException => e
     p 'failed to login ' + e.status
     p e.resp
