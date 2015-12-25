@@ -6,36 +6,31 @@ class KiiCondition
         @clause = clause
     end
 
-
     def sortByAsc(field)
         @orderBy = field
         @descending = FALSE
     end
-
 
     def sortByDesc(field)
         @orderBy = field
         @descending = TRUE
     end
 
-
     def setLimit(limit)
         @limit = limit
     end
-
 
     def setPaginationKey(key)
         @paginationKey = key
     end
 
-
-    def hasNext()
+    def hasNext
         return @paginationKey != nil
     end
 
-    def toJson()
+    def toJson
         query = {
-            :clause => @clause.toJson()
+            :clause => @clause.toJson
         }
 
         if @orderBy

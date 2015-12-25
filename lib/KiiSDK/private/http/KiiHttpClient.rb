@@ -17,7 +17,6 @@ class KiiHttpClient
         return self
     end
 
-
     def setMethod(method)
         case method
         when HTTP_GET then
@@ -35,16 +34,13 @@ class KiiHttpClient
         end
     end
 
-
     def setContentType(value)
         @req["Content-Type"] = value
     end
 
-
     def setHeader(key, value)
         @req[key] = value
     end
-
 
     def setKiiHeader(context, authRequired)
         setHeader('x-kii-appid', context.appId)
@@ -54,18 +50,15 @@ class KiiHttpClient
         end
     end
 
-
     def sendFile(fp)
         @req.body = fp
         send()
     end
 
-
     def sendForDownload(fp)
         @req.attach(KiiHttpClientObserver.new(fp))
 		send()
     end
-
 
     def sendJson(json)
         body = JSON.generate(json)
@@ -73,14 +66,12 @@ class KiiHttpClient
         send()
     end
 
-
     def send()
         @http = Net::HTTP.new(@uri.host, @uri.port)
         @http.use_ssl = true
 
         # @http.set_debug_output $stderr
         # puts "\n"
-
 
         resp = @http.request(@req)
 
@@ -90,5 +81,4 @@ class KiiHttpClient
             puts [@uri.to_s, e.class, e].join(" : ")
             nil
     end
-
 end

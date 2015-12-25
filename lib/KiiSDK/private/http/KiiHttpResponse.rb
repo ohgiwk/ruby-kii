@@ -17,5 +17,4 @@ class KiiHttpResponse
     def getAsJson()
         JSON.parse(@body)
     end
-
 end

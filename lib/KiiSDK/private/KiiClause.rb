@@ -1,4 +1,3 @@
-
 class KiiClause
     attr_reader :clause
     @clause = {}

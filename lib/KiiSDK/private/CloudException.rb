@@ -1,4 +1,3 @@
-
 class CloudException < Exception
 
     attr_reader :status
@@ -9,11 +8,3 @@ class CloudException < Exception
         @resp = resp
     end
 end
-
-
-
-
-
-
-
-

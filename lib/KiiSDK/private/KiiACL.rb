@@ -1,4 +1,3 @@
-
 class KiiACL()
 
     QUERY_OBJECTS_IN_BUCKET = 1
