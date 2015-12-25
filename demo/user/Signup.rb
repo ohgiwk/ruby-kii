@@ -1,8 +1,8 @@
+require "KiiSDK"
 require_relative "../Constants.rb"
-require_relative "../../kii/KiiAppAPI.rb"
 
 
-kiiAppAPI = KiiAppAPI.new(APP_ID, APP_KEY, SITE)
+kiiAppAPI = KiiSDK.init(APP_ID, APP_KEY, SITE)
 
 begin
     userID = kiiAppAPI.signUp({

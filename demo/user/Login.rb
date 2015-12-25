@@ -2,7 +2,7 @@ require "KiiSDK"
 require_relative "../Constants.rb"
 
 
-kiiAppAPI = KiiSDK.initialize(APP_ID, APP_KEY, SITE)
+kiiAppAPI = KiiSDK.init(APP_ID, APP_KEY, SITE)
 
 begin
     user = kiiAppAPI.login(USER, PASSWORD)

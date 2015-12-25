@@ -1,4 +1,3 @@
-require_relative "../kii/private/KiiContext.rb"
 
 APP_ID = "abcdefghijklmnopqrstuvwxyz"
 APP_KEY = "abcdefghijklmnopqrstuvwxyz"
