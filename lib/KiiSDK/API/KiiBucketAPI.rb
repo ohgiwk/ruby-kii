@@ -13,7 +13,7 @@ class KiiBucketAPI
     end
 
 
-    # バケットからデータを取得する
+
     def query(bucket, condition)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{bucket.getPath}/query"
@@ -75,7 +75,7 @@ class KiiBucketAPI
 
 
 
-    # バケットを削除する
+
     def delete(bucket)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{bucket.path}"
