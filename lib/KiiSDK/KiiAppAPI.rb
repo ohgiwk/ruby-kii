@@ -9,7 +9,7 @@ require_relative "./private/KiiCondition.rb"
 require_relative "./private/KiiClause.rb"
 require_relative "./private/KiiUser.rb"
 require_relative "./private/KiiGroup.rb"
-require_relative "./private/Kiibucket.rb"
+require_relative "./private/KiiBucket.rb"
 require_relative "./private/KiiObject.rb"
 
 require_relative "./private/CloudException"

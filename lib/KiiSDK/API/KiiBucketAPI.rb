@@ -1,4 +1,4 @@
-require_relative "../private/Kiibucket.rb"
+require_relative "../private/KiiBucket.rb"
 require_relative "../private/CloudException.rb"
 
 class KiiBucketAPI
