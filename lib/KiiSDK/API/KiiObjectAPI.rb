@@ -70,6 +70,7 @@ class KiiObjectAPI
         client = c.getNewClient
         client.setUrl url
         client.setMethod KiiHttpClient::HTTP_PUT
+        client.setKiiHeader(c, true)
         client.setContentType('application/json')
 
         resp = client.sendJson(object.data)
@@ -86,7 +87,7 @@ class KiiObjectAPI
     end
 
 
-    def updatePatch(object, patch)
+    def upatePatch(object, patch)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{object.getPath}"
 
