@@ -86,7 +86,7 @@ class KiiObjectAPI
     end
 
 
-    def upatePatch(object, patch)
+    def updatePatch(object, patch)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{object.getPath}"
 
