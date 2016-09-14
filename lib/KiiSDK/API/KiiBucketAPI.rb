@@ -8,7 +8,7 @@ class KiiBucketAPI
     end
 
 
-    def getBucket(bucket, scope: KiiBucket::SCOPE_APPLICATION, id: "")
+    def getBucket(bucket, scope = KiiBucket::SCOPE_APPLICATION, id = "")
         KiiBucket.new(bucket, scope, id)
     end
 
