@@ -48,7 +48,7 @@ class KiiClause
     end
 
     def self.inClause(field, values)
-        c = KiiClause('in')
+        c = KiiClause.new('in')
         c.clause['field'] = field
         c.clause['values'] = values
 
@@ -56,7 +56,7 @@ class KiiClause
     end
 
     def self.not(clause)
-        c = KiiClause('not')
+        c = KiiClause.new('not')
         c.clause['clause'] = clause.toJson()
 
         return c
@@ -71,7 +71,7 @@ class KiiClause
     end
 
     def self.orClause(*clauses)
-        c = KiiClause('or')
+        c = KiiClause.new('or')
         array = KiiClause.toFlatArray(clauses)
         c.clause['clauses'] = array
 
