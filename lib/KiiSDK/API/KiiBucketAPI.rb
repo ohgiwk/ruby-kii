@@ -21,7 +21,7 @@ class KiiBucketAPI
         client = c.getNewClient
         client.setUrl(url)
         client.setMethod(KiiHttpClient::HTTP_POST)
-        client.setKiiHeader(c, bucket.scope==KiiBUcket::SCOPE_USER)
+        client.setKiiHeader(c, bucket.scope==KiiBucket::SCOPE_USER)
         client.setContentType('application/vnd.kii.QueryRequest+json')
 
         resp = client.sendJson(condition.toJson)
