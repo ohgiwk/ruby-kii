@@ -53,10 +53,9 @@ class KiiAppAPI
         unless resp.status == '201'
             raise CloudException.new(resp.status, resp.getAsJson)
         end
-
+        
         return login(userData['loginName'], userData['password'])
     end
-
 
     def login(userIdentifier, password)
         body = {
@@ -66,7 +65,14 @@ class KiiAppAPI
         execLogin(body)
     end
 
-
+    def refreshToken(access_token)
+        body = {
+          "grant_type" => "refresh_token",
+          "refresh_token" => "#{access_token}"
+        } 
+        execLogin(body)
+    end
+    
     def loginAsAdmin(client_id, clientSecret)
         body = {
             :client_id => client_id,
@@ -79,7 +85,7 @@ class KiiAppAPI
     def execLogin(body)
         c = @context
         url = "#{c.serverUrl}/oauth2/token"
-
+        
         client = c.getNewClient
         client.setUrl(url)
         client.setMethod(KiiHttpClient::HTTP_POST)
@@ -95,7 +101,9 @@ class KiiAppAPI
 
         userId = respJson['id']
         token = respJson['access_token']
+        refreshToken = respJson['refresh_token']
         c.accessToken = token
+        c.refreshToken = refreshToken
 
         return KiiUser.new(userId)
     end

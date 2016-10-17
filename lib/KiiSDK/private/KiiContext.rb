@@ -10,6 +10,7 @@ class KiiContext
     attr_reader :appKey
     attr_reader :serverUrl
     attr_accessor :accessToken
+    attr_accessor :refreshToken
 
     def initialize(appId, appKey, serverUrl)
         @appId = appId
