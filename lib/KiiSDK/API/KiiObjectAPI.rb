@@ -69,7 +69,7 @@ class KiiObjectAPI
 
         client = c.getNewClient
         client.setUrl(url)
-        client.setMethod KiiHttpClient::HTTP_POST
+        client.setMethod KiiHttpClient::HTTP_PUT
         client.setKiiHeader(c, true)
         client.setContentType('application/json')
 
@@ -82,7 +82,7 @@ class KiiObjectAPI
         respJson = resp.getAsJson
         respHeaders = resp.getAllHeaders
         version = respHeaders['etag']
-        id = respJson['objectID']
+        id = object_id
 
         kiiobj = KiiObject.new(bucket, id, data)
         kiiobj.version = version
