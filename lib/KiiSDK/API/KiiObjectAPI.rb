@@ -63,6 +63,34 @@ class KiiObjectAPI
     end
 
 
+    def createById(bucket, data, object_id)
+        c = @context
+        url = "#{c.serverUrl}/apps/#{c.appId}#{bucket.getPath}/objects/#{object_id}"
+
+        client = c.getNewClient
+        client.setUrl(url)
+        client.setMethod KiiHttpClient::HTTP_POST
+        client.setKiiHeader(c, true)
+        client.setContentType('application/json')
+
+        resp = client.sendJson(data)
+
+        unless resp.status == '201'
+            raise CloudException.new(resp.status, resp.getAsJson)
+        end
+
+        respJson = resp.getAsJson
+        respHeaders = resp.getAllHeaders
+        version = respHeaders['etag']
+        id = respJson['objectID']
+
+        kiiobj = KiiObject.new(bucket, id, data)
+        kiiobj.version = version
+
+        return kiiobj
+    end
+
+
     def update(object)
         c = @context
         url = "#{c.serverUrl}/apps/#{c.appId}#{object.getPath}"
