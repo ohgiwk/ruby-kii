@@ -81,6 +81,23 @@ class KiiUserAPI
         return info
     end
 
+    def updateFields(data)
+        c = @context
+        url = "#{c.serverUrl}/apps/#{c.appId}/users/me"
+        
+        client = c.getNewClient
+        client.setUrl(url)
+        client.setMethod(KiiHttpClient::HTTP_POST)
+        client.setKiiHeader(c, true)
+        client.setContentType('application/vnd.kii.UserUpdateRequest+json')
+        
+        resp = client.sendJson(data)
+        unless resp.status == '200'
+            raise CloudException.new(resp.status, resp.getAsJson)
+        end
+        respJson = resp.getAsJson
+        return respJson
+    end
 
     def installDevice
         c = @context

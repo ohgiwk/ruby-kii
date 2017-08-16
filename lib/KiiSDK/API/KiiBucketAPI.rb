@@ -1,4 +1,4 @@
-require_relative "../private/Kiibucket.rb"
+require_relative "../private/KiiBucket.rb"
 require_relative "../private/CloudException.rb"
 
 class KiiBucketAPI
@@ -8,7 +8,7 @@ class KiiBucketAPI
     end
 
 
-    def getBucket(bucket, scope: KiiBucket::SCOPE_APPLICATION, id: "")
+    def getBucket(bucket, scope = KiiBucket::SCOPE_APPLICATION, id = "")
         KiiBucket.new(bucket, scope, id)
     end
 
@@ -21,7 +21,7 @@ class KiiBucketAPI
         client = c.getNewClient
         client.setUrl(url)
         client.setMethod(KiiHttpClient::HTTP_POST)
-        client.setKiiHeader(c, false)
+        client.setKiiHeader(c, bucket.scope==KiiBucket::SCOPE_USER)
         client.setContentType('application/vnd.kii.QueryRequest+json')
 
         resp = client.sendJson(condition.toJson)

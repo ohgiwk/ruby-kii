@@ -13,7 +13,7 @@ begin
 
     pp objectAPI.update(obj)
 
-    pp objectAPI.upatePatch(obj)
+    pp objectAPI.updatePatch(obj)
 
 rescue ex
     pp ex
